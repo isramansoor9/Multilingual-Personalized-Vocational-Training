@@ -509,6 +509,7 @@
 
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Home() {
@@ -563,9 +564,12 @@ export default function Home() {
           </div>
         </div>
 
-        <button className="bg-black text-white px-6 py-2 rounded text-sm font-medium transition-all duration-300 hover:bg-gray-800 transform hover:scale-105 hover:shadow-lg">
+        <Link
+          href="/login"
+          className="bg-black text-white px-6 py-2 rounded text-sm font-medium transition-all duration-300 hover:bg-gray-800 transform hover:scale-105 hover:shadow-lg"
+        >
           Login
-        </button>
+        </Link>
       </nav>
 
       {/* Hero Section */}
@@ -581,9 +585,12 @@ export default function Home() {
             Intelligence to enhance skills, boost employability, and drive youth
             empowerment.
           </p>
-          <button className="bg-black text-white px-8 py-3 rounded font-medium transition-all duration-300 hover:bg-gray-800 transform hover:scale-105 hover:shadow-xl">
+          <Link
+            href="/register"
+            className="inline-block bg-black text-white px-8 py-3 rounded font-medium transition-all duration-300 hover:bg-gray-800 transform hover:scale-105 hover:shadow-xl"
+          >
             Register now !
-          </button>
+          </Link>
         </div>
 
         <div className="mt-12 group">
@@ -890,9 +897,12 @@ export default function Home() {
             Join thousands of learners building in-demand vocational skills with
             Teachus.
           </p>
-          <button className="bg-white text-black px-10 py-3 rounded font-semibold transition-all duration-300 hover:bg-gray-100 transform hover:scale-105 hover:shadow-xl">
+          <Link
+            href="/register"
+            className="inline-block bg-white text-black px-10 py-3 rounded font-semibold transition-all duration-300 hover:bg-gray-100 transform hover:scale-105 hover:shadow-xl"
+          >
             Register Now
-          </button>
+          </Link>
         </div>
       </section>
 

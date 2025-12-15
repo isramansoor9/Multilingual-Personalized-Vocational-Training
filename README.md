@@ -20,6 +20,40 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Environment variables (frontend)
+
+Create a `.env.local` file with your MongoDB connection string:
+
+```
+NEXT_PUBLIC_API_BASE="http://localhost:5000/api"
+```
+
+Restart the dev server after updating environment variables.
+
+## Flask backend (API)
+
+The backend is a standalone Flask service that handles auth against MongoDB and is CORS-allowed for the Next.js frontend.
+
+1) Create `backend/.env` with:
+```
+MONGODB_URI="your-mongodb-connection-string"
+MONGODB_DB="teachus"
+# Frontend origin for CORS during dev
+CORS_ORIGIN="http://localhost:3000"
+# Optional: PORT="5000"
+```
+
+2) Install backend deps (from repo root):
+```
+cd backend
+python -m venv .venv
+./.venv/Scripts/activate   # Windows
+pip install -r requirements.txt
+python app.py
+```
+
+The API will run on `http://localhost:5000/api` by default. The frontend calls this via `NEXT_PUBLIC_API_BASE`.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

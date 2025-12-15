@@ -21,16 +21,16 @@ export default function Course1() {
   ];
 
   const bloomsLevels = [
-    { level: "Remember", description: "Recall basic concepts and terminology", icon: "📚" },
-    { level: "Understand", description: "Explain ideas and concepts", icon: "💡" },
-    { level: "Apply", description: "Use knowledge in practical situations", icon: "🔧" },
-    { level: "Analyze", description: "Break down and examine components", icon: "🔍" },
-    { level: "Evaluate", description: "Justify decisions and troubleshoot", icon: "⚖️" },
-    { level: "Create", description: "Design and build electrical systems", icon: "🎯" },
+    { level: "Remember", description: "Recall basic concepts and terminology", icon: <BookOpen className="w-8 h-8" /> },
+    { level: "Understand", description: "Explain ideas and concepts", icon: <Brain className="w-8 h-8" /> },
+    { level: "Apply", description: "Use knowledge in practical situations", icon: <CheckCircle className="w-8 h-8" /> },
+    { level: "Analyze", description: "Break down and examine components", icon: <BarChart className="w-8 h-8" /> },
+    { level: "Evaluate", description: "Justify decisions and troubleshoot", icon: <Target className="w-8 h-8" /> },
+    { level: "Create", description: "Design and build electrical systems", icon: <Zap className="w-8 h-8" /> },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 text-gray-600">
       {/* Navigation */}
       <nav className="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -505,7 +505,7 @@ export default function Course1() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white px-6 py-12">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-gray-400">© 2024 Teachus. All rights reserved.</p>
+          <p className="text-gray-400">© 2025-26 Teachus. All rights reserved.</p>
         </div>
       </footer>
     </div>
