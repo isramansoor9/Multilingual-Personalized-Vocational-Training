@@ -55,90 +55,65 @@ export default function Course3() {
         </div>
       </nav>
 
-      {/* Hero Section */}
+        {/* Hero Section */}
       <section className="px-6 py-12 max-w-7xl mx-auto text-gray-600">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
           <div className="grid lg:grid-cols-2 gap-8 p-8 lg:p-12">
-            {/* Left Content */}
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-black/5 rounded-full mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#c3bebb]/20 rounded-full mb-6 text-gray-800">
                 <Target className="w-4 h-4" />
-                <span className="text-sm font-medium">Skilled Technician Course</span>
+                <span className="text-sm font-bold uppercase tracking-wider">Skilled Technician Course</span>
               </div>
               
-              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-gray-900">
-                Auto Electrician G-III Level
-                <span className="block text-gray-600 text-2xl mt-2">Course 3 (1-Year)</span>
+              <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+                Auto Electrician <br/><span className="text-[#968e8a]">G-III Level</span>
+                <span className="block text-gray-500 text-xl font-medium mt-2">Course 3 (1-Year Duration)</span>
               </h1>
               
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                Due to popularity of automobiles, the need for skilled technician has increased. This is the age of specialization, with rapid changes in models every year and introduction of electronics requiring specialized auto electricians who have the basic concept of theory and can apply knowledge in practice. This curriculum covers automotive topics of scientific terms, principles, function, construction and operation of systems enabling pass-outs to meet job market demands.
+                As automotive technology evolves with electronics and rapid model changes, specialized auto electricians are more in demand than ever. This curriculum bridges theoretical concepts with intensive practical application.
               </p>
 
-              <button className="bg-black text-white px-8 py-4 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center gap-2 group">
-                Start Course
+              <button className="bg-black text-white px-8 py-4 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group shadow-lg shadow-black/20">
+                Enroll Now
                 <Zap className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
 
-            {/* Right - Course Stats */}
-            <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-8 text-gray-600">
-              <h3 className="text-2xl font-bold mb-6 text-gray-900">Curriculum Salients</h3>
+            <div className="bg-[#f4f3f2] rounded-xl p-8 border border-[#c3bebb]/30">
+              <h3 className="text-2xl font-bold mb-6 text-gray-900 border-b border-[#c3bebb] pb-2">Curriculum Salients</h3>
               
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm">
-                  <div className="flex items-center gap-3">
-                    <TrendingUp className="w-5 h-5 text-gray-600" />
-                    <span className="font-medium">Entry Level</span>
-                  </div>
-                  <span className="font-semibold text-gray-900">Matric</span>
-                </div>
+                {[
+                    { icon: <TrendingUp/>, label: "Entry Level", val: "Matric" },
+                    { icon: <Calendar/>, label: "Total Duration", val: "1 Year (2 Semesters)" },
+                    { icon: <Globe/>, label: "Instruction Medium", val: "Urdu / English" }
+                ].map((item, i) => (
+                    <div key={i} className="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm border-l-4 border-[#c3bebb]">
+                        <div className="flex items-center gap-3">
+                            <span className="text-gray-500">{item.icon}</span>
+                            <span className="font-medium">{item.label}</span>
+                        </div>
+                        <span className="font-bold text-gray-900">{item.val}</span>
+                    </div>
+                ))}
 
-                <div className="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm">
-                  <div className="flex items-center gap-3">
-                    <Calendar className="w-5 h-5 text-gray-600" />
-                    <span className="font-medium">Total Duration</span>
-                  </div>
-                  <span className="font-semibold text-gray-900">1 Year (2 Semesters)</span>
-                </div>
-
-                <div className="p-4 bg-white rounded-lg shadow-sm text-gray-600">
+                <div className="p-4 bg-white rounded-lg shadow-sm border-l-4 border-[#c3bebb]">
                   <div className="flex items-center gap-3 mb-3">
-                    <Clock className="w-5 h-5 text-gray-600" />
+                    <Clock className="w-5 h-5 text-gray-500" />
                     <span className="font-medium">Total Training Hours</span>
                   </div>
-                  <div className="ml-8 space-y-2 text-sm text-gray-600">
-                    <p><strong className="text-gray-900">1600 Hours</strong> total</p>
-                    <p>800 hours per semester</p>
-                    <p>40 Hours per week</p>
-                    <p>7 Hours per day (Friday 5 Hours)</p>
+                  <div className="ml-8 grid grid-cols-2 gap-2 text-sm">
+                    <p className="bg-[#c3bebb]/10 p-2 rounded text-center"><strong className="text-gray-900">1600</strong> Total</p>
+                    <p className="bg-[#c3bebb]/10 p-2 rounded text-center"><strong className="text-gray-900">40</strong> Weekly</p>
                   </div>
-                </div>
-
-                <div className="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm text-gray-600">
-                  <div className="flex items-center gap-3">
-                    <BarChart className="w-5 h-5 text-gray-600" />
-                    <span className="font-medium">Training Methodology</span>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-semibold text-gray-900">Practical 80%</p>
-                    <p className="text-sm text-gray-600">Theory 20%</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm">
-                  <div className="flex items-center gap-3">
-                    <Globe className="w-5 h-5 text-gray-600" />
-                    <span className="font-medium">Medium of Instruction</span>
-                  </div>
-                  <span className="font-semibold text-gray-900">Urdu / English</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
+     
       {/* Tabs Section */}
       <section className="px-6 py-8 max-w-7xl mx-auto text-gray-600">
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -251,53 +226,53 @@ export default function Course3() {
               </div>
 
               {/* Adaptive Quiz System */}
-              <div className="bg-gradient-to-br from-black to-gray-800 text-white rounded-2xl p-8 mb-8 ">
-                <div className="flex items-center gap-3 mb-6">
-                <Brain className="w-8 h-8" />
-                <h3 className="text-2xl font-bold">Adaptive Quiz System</h3>
-                </div>
-                
-                <div className="space-y-6">
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-                  <h4 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5" />
+                <div className="bg-gradient-to-br from-[#c3bebb] to-gray-100 text-gray-900 rounded-2xl p-8 mb-8 border border-gray-300">
+                  <div className="flex items-center gap-3 mb-6">
+                  <Brain className="w-8 h-8 text-[#c3bebb]" />
+                  <h3 className="text-2xl font-bold text-gray-900">Adaptive Quiz System</h3>
+                  </div>
+
+                  <div className="space-y-6">
+                  <div className="bg-[#c3bebb]   backdrop-blur-sm rounded-xl p-6">
+                  <h4 className="text-xl font-semibold mb-3 flex items-center gap-2 text-gray-900">
+                  <CheckCircle className="w-5 h-5 text-[#c3bebb]" />
                   Progress Monitoring Through Quizzes
                   </h4>
-                  <p className="text-white leading-relaxed">
+                  <p className="text-gray-700 leading-relaxed">
                   Your progress is continuously monitored through adaptive quizzes that adjust difficulty based on your performance. Each quiz evaluates your understanding across all six levels of Enhanced Bloom's Taxonomy.
                   </p>
-                </div>
+                  </div>
 
-                <div className="grid md:grid-cols-3 gap-4">
-                  <div className="bg-green-500/20 border border-green-500/50 rounded-xl p-6">
-                  <h5 className="font-bold text-lg mb-2 flex items-center gap-2">
-                    <span className="text-2xl">✅</span> Easy Level
+                  <div className="grid md:grid-cols-3 gap-4">
+                  <div className="bg-[#c3bebb] border border-[#c3bebb] rounded-xl p-6 hover:shadow-md transition-shadow">
+                  <h5 className="font-bold text-lg mb-2 flex items-center gap-2 text-gray-900">
+                    <span className="text-2xl">✓</span> Easy Level
                   </h5>
-                  <p className="text-sm text-black">
+                  <p className="text-sm text-gray-700">
                     Focuses on <strong>Remember</strong> and <strong>Understand</strong> levels. Tests basic knowledge and comprehension.
                   </p>
                   </div>
 
-                  <div className="bg-yellow-500/20 border border-yellow-500/50 rounded-xl p-6">
-                  <h5 className="font-bold text-lg mb-2 flex items-center gap-2">
-                    <span className="text-2xl">⚡</span> Medium Level
+                  <div className="bg-[#c3bebb] border border-[#c3bebb] rounded-xl p-6 hover:shadow-md transition-shadow">
+                  <h5 className="font-bold text-lg mb-2 flex items-center gap-2 text-gray-900">
+                    <span className="text-2xl">◆</span> Medium Level
                   </h5>
-                  <p className="text-sm text-black">
+                  <p className="text-sm text-gray-700">
                     Emphasizes <strong>Apply</strong> and <strong>Analyze</strong> levels. Evaluates practical application and problem-solving.
                   </p>
                   </div>
 
-                  <div className="bg-red-500/20 border border-red-500/50 rounded-xl p-6">
-                  <h5 className="font-bold text-lg mb-2 flex items-center gap-2">
-                    <span className="text-2xl">🔥</span> Hard Level
+                  <div className="bg-[#c3bebb] border border-[#c3bebb] rounded-xl p-6 hover:shadow-md transition-shadow">
+                  <h5 className="font-bold text-lg mb-2 flex items-center gap-2 text-gray-900">
+                    <span className="text-2xl">★</span> Hard Level
                   </h5>
-                  <p className="text-sm text-black">
+                  <p className="text-sm text-gray-700">
                     Targets <strong>Evaluate</strong> and <strong>Create</strong> levels. Challenges advanced critical thinking and innovation.
                   </p>
                   </div>
+                  </div>
+                  </div>
                 </div>
-                </div>
-              </div>
 
               {/* How It Works */}
               <div className="bg-gray-50 rounded-xl p-8 text-gray-600">
@@ -409,58 +384,59 @@ export default function Course3() {
                 </div>
 
                 {/* How Personalization Works */}
-                <div className="bg-gradient-to-r from-gray-900 to-black text-white rounded-2xl p-8 mb-8">
-                  <h3 className="text-2xl font-bold mb-6">How Subtopic Personalization Works</h3>
-                  
+                <div className="bg-gradient-to-r from-[#c3bebb] to-[#cbbfb7] text-gray-900 rounded-2xl p-8 mb-8 border border-gray-300">
+                  <h3 className="text-2xl font-bold mb-6 text-gray-900">How Subtopic Personalization Works</h3>
+
                   <div className="space-y-6">
-                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                      <h4 className="font-bold text-lg mb-3 flex items-center gap-2">
-                        <span className="text-2xl">📊</span> Performance Analysis
-                      </h4>
-                      <p className="text-gray-200 leading-relaxed">
-                        After each quiz, the AI analyzes your answers to identify:
-                      </p>
-                      <ul className="mt-3 ml-6 space-y-2 text-gray-200">
-                        <li>• Which subtopics you excel in</li>
-                        <li>• Which Bloom's Taxonomy levels need reinforcement</li>
-                        <li>• Your learning pace and preferred content format</li>
-                        <li>• Common misconceptions or knowledge gaps</li>
-                      </ul>
-                    </div>
+                  <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200">
+                    <h4 className="font-bold text-lg mb-3 flex items-center gap-2 text-gray-900">
+                    <span className="text-2xl">📊</span> Performance Analysis
+                    </h4>
+                    <p className="text-gray-700 leading-relaxed">
+                    After each quiz, the AI analyzes your answers to identify:
+                    </p>
+                    <ul className="mt-3 ml-6 space-y-2 text-gray-700">
+                    <li>• Which subtopics you excel in</li>
+                    <li>• Which Bloom's Taxonomy levels need reinforcement</li>
+                    <li>• Your learning pace and preferred content format</li>
+                    <li>• Common misconceptions or knowledge gaps</li>
+                    </ul>
+                  </div>
 
-                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                      <h4 className="font-bold text-lg mb-3 flex items-center gap-2">
-                        <span className="text-2xl">🎯</span> Dynamic Content Generation
-                      </h4>
-                      <p className="text-gray-200 leading-relaxed">
-                        For each course component (Battery, Starting System, etc.), subtopics are dynamically personalized:
-                      </p>
-                      <div className="mt-4 space-y-3">
-                        <div className="bg-black/30 rounded-lg p-4">
-                          <p className="font-semibold mb-1">If you score well (Easy → Medium)</p>
-                          <p className="text-sm text-gray-300">Content advances to more complex applications and analysis</p>
-                        </div>
-                        <div className="bg-black/30 rounded-lg p-4">
-                          <p className="font-semibold mb-1">If you struggle (Medium → Easy)</p>
-                          <p className="text-sm text-gray-300">System provides foundational reviews with more examples</p>
-                        </div>
-                        <div className="bg-black/30 rounded-lg p-4">
-                          <p className="font-semibold mb-1">If you master concepts (Medium → Hard)</p>
-                          <p className="text-sm text-gray-300">Advanced challenges and real-world problem-solving scenarios</p>
-                        </div>
-                      </div>
+                  <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200">
+                    <h4 className="font-bold text-lg mb-3 flex items-center gap-2 text-gray-900">
+                    <span className="text-2xl">🎯</span> Dynamic Content Generation
+                    </h4>
+                    <p className="text-gray-700 leading-relaxed">
+                    For each course component (Battery, Starting System, etc.), subtopics are dynamically personalized:
+                    </p>
+                    <div className="mt-4 space-y-3">
+                    <div className="bg-gray-200/50 rounded-lg p-4">
+                      <p className="font-semibold mb-1 text-gray-900">If you score well (Easy → Medium)</p>
+                      <p className="text-sm text-gray-700">Content advances to more complex applications and analysis</p>
                     </div>
-
-                    <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                      <h4 className="font-bold text-lg mb-3 flex items-center gap-2">
-                        <span className="text-2xl">🔄</span> Continuous Adaptation
-                      </h4>
-                      <p className="text-gray-200 leading-relaxed">
-                        The personalization engine continuously learns from your interactions, updating your learning path in real-time. As you progress through modules, your personalized profile becomes more accurate, delivering increasingly relevant content.
-                      </p>
+                    <div className="bg-gray-200/50 rounded-lg p-4">
+                      <p className="font-semibold mb-1 text-gray-900">If you struggle (Medium → Easy)</p>
+                      <p className="text-sm text-gray-700">System provides foundational reviews with more examples</p>
+                    </div>
+                    <div className="bg-gray-200/50 rounded-lg p-4">
+                      <p className="font-semibold mb-1 text-gray-900">If you master concepts (Medium → Hard)</p>
+                      <p className="text-sm text-gray-700">Advanced challenges and real-world problem-solving scenarios</p>
+                    </div>
                     </div>
                   </div>
+
+                  <div className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-gray-200">
+                    <h4 className="font-bold text-lg mb-3 flex items-center gap-2 text-gray-900">
+                    <span className="text-2xl">🔄</span> Continuous Adaptation
+                    </h4>
+                    <p className="text-gray-700 leading-relaxed">
+                    The personalization engine continuously learns from your interactions, updating your learning path in real-time. As you progress through modules, your personalized profile becomes more accurate, delivering increasingly relevant content.
+                    </p>
+                  </div>
+                  </div>
                 </div>
+
 
                 {/* Example Scenario */}
                 <div className="bg-linear-to-br from-black-50 to-black-100 rounded-xl p-8">
@@ -503,23 +479,35 @@ export default function Course3() {
       </section>
 
       {/* CTA Section */}
-      <section className="px-6 py-16 max-w-7xl mx-auto">
-        <div className="bg-linear-to-r from-black to-gray-800 text-white rounded-2xl p-12 text-center">
+      {/* <section className="px-6 py-16 max-w-7xl mx-auto ">
+        <div className="bg-gradient-to-r text-white rounded-2xl p-12 text-center" style={{ backgroundImage: "linear-gradient(to right, #c3bebb, #cbbfb7)" }}>
           <Award className="w-16 h-16 mx-auto mb-6" />
           <h2 className="text-3xl font-bold mb-4">Ready to Start Your Journey?</h2>
-          <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
-            Begin your personalized learning experience with AI-powered assessments and adaptive content tailored just for you.
+          <p className=" text-lg mb-8 max-w-2xl mx-auto text-white">
+        Begin your personalized learning experience with AI-powered assessments and adaptive content tailored just for you.
           </p>
           <button className="bg-white text-black px-10 py-4 rounded-xl font-bold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
-            Enroll in Course 3
+        Enroll in Course 3
           </button>
         </div>
+      </section> */}
+      <section className="px-6 py-16 max-w-7xl mx-auto ">
+         <div className="bg-[#c3bebb] text-black rounded-3xl p-12 text-center shadow-2xl shadow-[#c3bebb]/40 relative overflow-hidden">
+           <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+           <Award className="w-16 h-16 mx-auto mb-6 opacity-80" />
+           <h2 className="text-4xl font-bold mb-4">Start Your Technical Career</h2>
+           <p className="text-lg mb-8 max-w-2xl mx-auto font-medium opacity-80">
+             Join the course designed for the modern automotive world. 80% practical training, 100% focused on your success.
+           </p>
+           <button className="bg-black text-white px-12 py-5 rounded-2xl font-bold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 shadow-xl">
+             Enroll in Course 3 Today
+           </button>
+         </div>
       </section>
-
       {/* Footer */}
-      <footer className="bg-gray-900 text-white px-6 py-12">
+      <footer className="bg-gray-900 text-white px-6 py-12" style={{ backgroundColor: "#c3bebb" }}>
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-gray-400">© 2025-26 Teachus. All rights reserved.</p>
+          <p className="text-black-400">© 2025-26 Teachus. All rights reserved.</p>
         </div>
       </footer>
     </div>

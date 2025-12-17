@@ -147,15 +147,16 @@ export default function RegisterPage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">CNIC</label>
               <input
-                required
-                type="text"
-                value={form.cnic}
-                onChange={(e) => handleChange("cnic")(e.target.value)}
-                placeholder="13-digit CNIC"
-                minLength={13}
-                maxLength={13}
-                pattern="\\d{13}"
-                className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:border-black focus:ring-2 focus:ring-black/10 transition"
+              required
+              type="text"
+              value={form.cnic}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, "");
+                if (value.length <= 13) handleChange("cnic")(value);
+              }}
+              placeholder="13-digit CNIC"
+              maxLength={13}
+              className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:outline-none focus:border-black focus:ring-2 focus:ring-black/10 transition"
               />
               <p className="text-xs text-gray-400 mt-1">13 digits, no dashes.</p>
             </div>
@@ -217,4 +218,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-

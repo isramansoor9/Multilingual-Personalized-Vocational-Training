@@ -58,7 +58,6 @@ def validate_register_payload(body: dict) -> Tuple[bool, str]:
     return False, "First name, last name, city, phone, CNIC, email, and password are required."
   if len(password) < 6:
     return False, "Password must be at least 6 characters long."
-  # CNIC should be 13 numeric digits (no dashes)
   if len(cnic) != 13 or not cnic.isdigit():
     return False, "CNIC must be exactly 13 digits (numbers only)."
   return True, ""
@@ -129,7 +128,17 @@ def login():
     jsonify(
       {
         "message": "Login successful.",
-        "user": {"name": user.get("name", ""), "email": user["email"]},
+        "user": {
+          "userId": user.get("userId", ""),
+          "firstName": user.get("firstName", ""),
+          "lastName": user.get("lastName", ""),
+          "email": user["email"],
+          "city": user.get("city", ""),
+          "phone": user.get("phone", ""),
+          "cnic": user.get("cnic", ""),
+          "course": user.get("course"),
+          "createdAt": user.get("createdAt").isoformat() if user.get("createdAt") else None,
+        },
       }
     ),
     200,

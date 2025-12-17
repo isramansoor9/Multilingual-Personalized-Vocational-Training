@@ -39,6 +39,8 @@ export default function LoginPage() {
       }
 
       setMessage({ type: "success", text: "Login successful! Redirecting..." });
+      // Store user data for dashboard
+      localStorage.setItem("teachus_user", JSON.stringify(data.user));
       setTimeout(() => router.push("/"), 900);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Something went wrong.";
