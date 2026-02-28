@@ -2,9 +2,16 @@
 
 import { useState } from "react";
 import { BookOpen, Clock, Calendar, Globe, TrendingUp, Target, CheckCircle, Award, BarChart, Brain, Zap, Users } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Course1() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("overview");
+
+  // Add this handler function
+  const handleStartCourse = () => {
+    router.push('/course2/learn');
+  };
 
   const courseModules = [
     { no: 1, component: "Introduction to Auto electrician basics", theory: 51, practical: 90, total: 141 },
@@ -61,7 +68,10 @@ export default function Course1() {
                 Equip yourself with foundational skills in automotive electrical systems. Over six months, gain hands-on experience with batteries, ignition, and wiring while learning essential troubleshooting. This curriculum bridges entry-level theory with real-world application.
               </p>
 
-              <button className="bg-black text-white px-8 py-4 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group shadow-lg shadow-black/20">
+              <button 
+                onClick={handleStartCourse}
+                className="bg-black text-white px-8 py-4 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group shadow-lg shadow-black/20"
+                >
                 Start Course
                 <Zap className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
