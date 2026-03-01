@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:5000/api";
 
 type FormState = {
   firstName: string;
@@ -40,13 +39,26 @@ export default function RegisterPage() {
     setMessage(null);
 
     try {
-      const response = await fetch(`${API_BASE}/register`, {
+      const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
 
-      const data = await response.json();
+      const contentType = response.headers.get("content-type") ?? "";
+      if (!contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("Register API returned non-JSON:", text?.slice(0, 200));
+        throw new Error(
+          "Server error. Add MONGODB_URI to .env.local and ensure MongoDB is running."
+        );
+      }
+      let data: { error?: string };
+      try {
+        data = await response.json();
+      } catch {
+        throw new Error("Server error. Please try again.");
+      }
       if (!response.ok) {
         throw new Error(data.error || "Registration failed.");
       }

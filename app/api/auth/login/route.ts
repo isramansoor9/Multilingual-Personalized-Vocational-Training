@@ -22,9 +22,13 @@ export async function POST(request: Request) {
 
     const db = await getDb();
     const users = db.collection("users");
-    const user = await users.findOne<{ name: string; email: string; passwordHash: string }>({
-      email,
-    });
+    const user = await users.findOne<{
+      name?: string;
+      firstName?: string;
+      lastName?: string;
+      email: string;
+      passwordHash: string;
+    }>({ email });
 
     if (!user) {
       return NextResponse.json(
@@ -41,14 +45,34 @@ export async function POST(request: Request) {
       );
     }
 
+    const displayName =
+      user.name ||
+      [user.firstName, user.lastName].filter(Boolean).join(" ").trim() ||
+      user.email;
+
     return NextResponse.json({
       message: "Login successful.",
-      user: { name: user.name, email: user.email },
+      user: {
+        name: displayName,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
     });
   } catch (error) {
     console.error("Login API error", error);
+    const message =
+      error instanceof Error ? error.message : "";
+    const isDbError =
+      message.includes("MONGODB") ||
+      message.includes("connect") ||
+      message.includes("connection");
     return NextResponse.json(
-      { error: "Unable to login. Please try again later." },
+      {
+        error: isDbError
+          ? "Database not configured or unavailable. Add MONGODB_URI to .env.local and ensure MongoDB is running."
+          : "Unable to login. Please try again later.",
+      },
       { status: 500 }
     );
   }

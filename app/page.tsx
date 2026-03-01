@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useAuth, getDisplayName } from "@/contexts/AuthContext";
+import { User } from "lucide-react";
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const { user, isLoggedIn } = useAuth();
 
   const faqs = [
     {
@@ -55,12 +58,24 @@ export default function Home() {
           </div>
         </div>
 
-        <Link
-          href="/login"
-          className="bg-black text-white px-6 py-2 rounded text-sm font-medium transition-all duration-300 hover:bg-gray-800 transform hover:scale-105 hover:shadow-lg"
-        >
-          Login
-        </Link>
+        {isLoggedIn && user ? (
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+          >
+            <span className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center">
+              <User className="w-4 h-4" />
+            </span>
+            <span className="max-w-[120px] truncate">{getDisplayName(user)}</span>
+          </Link>
+        ) : (
+          <Link
+            href="/login"
+            className="bg-black text-white px-6 py-2 rounded text-sm font-medium transition-all duration-300 hover:bg-gray-800 transform hover:scale-105 hover:shadow-lg"
+          >
+            Login
+          </Link>
+        )}
       </nav>
 
       {/* Hero Section */}

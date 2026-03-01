@@ -8,25 +8,24 @@ declare global {
 const uri = process.env.MONGODB_URI;
 const dbName = process.env.MONGODB_DB || "teachus";
 
-if (!uri) {
-  throw new Error(
-    "Please set the MONGODB_URI environment variable in your .env.local file."
-  );
-}
+const clientPromise = uri
+  ? (global._mongoClientPromise ?? new MongoClient(uri).connect().catch((err) => {
+      console.error("Failed to connect to MongoDB", err);
+      throw err;
+    }))
+  : null;
 
-const client = new MongoClient(uri);
-const clientPromise =
-  global._mongoClientPromise || client.connect().catch((error) => {
-    console.error("Failed to connect to MongoDB", error);
-    throw error;
-  });
-
-if (!global._mongoClientPromise) {
+if (uri && clientPromise && !global._mongoClientPromise) {
   global._mongoClientPromise = clientPromise;
 }
 
 export async function getDb(): Promise<Db> {
-  const connectedClient = await clientPromise;
-  return connectedClient.db(dbName);
+  if (!uri || !clientPromise) {
+    throw new Error(
+      "Please set the MONGODB_URI environment variable in your .env.local file."
+    );
+  }
+  const client = await clientPromise;
+  return client.db(dbName);
 }
 

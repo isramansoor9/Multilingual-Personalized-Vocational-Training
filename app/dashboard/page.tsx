@@ -1,37 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:5000/api";
+import { useAuth, getDisplayName } from "@/contexts/AuthContext";
+import { User } from "lucide-react";
 
 type User = {
-  userId: string;
-  firstName: string;
-  lastName: string;
+  userId?: string;
+  firstName?: string;
+  lastName?: string;
+  name?: string;
   email: string;
-  city: string;
-  phone: string;
-  cnic: string;
-  course: string | null;
-  createdAt: string;
+  city?: string;
+  phone?: string;
+  cnic?: string;
+  course?: string | null;
+  createdAt?: string;
+  [key: string]: unknown;
 };
 
 export default function DashboardPage() {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("teachus_user");
-    if (stored) {
-      try {
-        setUser(JSON.parse(stored));
-      } catch {
-        setUser(null);
-      }
-    }
-    setLoading(false);
-  }, []);
+  const { user, isLoading: loading, logout } = useAuth();
+  const userTyped = user as User | null;
 
   if (loading) {
     return (
@@ -41,7 +30,7 @@ export default function DashboardPage() {
     );
   }
 
-  if (!user) {
+  if (!loading && !userTyped) {
     return (
       <div className="min-h-screen bg-white text-black">
         {/* Nav */}
@@ -89,11 +78,11 @@ export default function DashboardPage() {
     );
   }
 
-  const initials = `${user.firstName?.[0] || ""}${user.lastName?.[0] || ""}`.toUpperCase();
-  const joinedDate = user.createdAt ? new Date(user.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) : "N/A";
+  const initials = (userTyped.firstName?.[0] || userTyped.lastName?.[0] || userTyped.name?.[0] || userTyped.email?.[0] || "?").toString().toUpperCase();
+  const joinedDate = userTyped.createdAt ? new Date(userTyped.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) : "N/A";
 
   const handleLogout = () => {
-    localStorage.removeItem("teachus_user");
+    logout();
     window.location.href = "/";
   };
 
@@ -108,9 +97,17 @@ export default function DashboardPage() {
           <span className="text-lg font-bold text-black tracking-wide">Teachus</span>
         </Link>
         <div className="flex items-center gap-4">
-          <span className="text-sm text-gray-600 hidden sm:block">
-            Welcome, <span className="font-semibold">{user.firstName}</span>
-          </span>
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-2 text-gray-700 hover:text-gray-900"
+          >
+            <span className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center flex-shrink-0">
+              <User className="w-4 h-4" />
+            </span>
+            <span className="text-sm font-medium max-w-[140px] truncate hidden sm:inline">
+              {getDisplayName(userTyped)}
+            </span>
+          </Link>
           <button
             onClick={handleLogout}
             className="bg-black text-white px-5 py-2 rounded text-sm font-medium transition-all duration-300 hover:bg-gray-800 hover:scale-105"
@@ -127,8 +124,8 @@ export default function DashboardPage() {
             {initials}
           </div>
           <div>
-            <h1 className="text-3xl font-bold">{user.firstName} {user.lastName}</h1>
-            <p className="text-gray-500 mt-1">{user.email}</p>
+            <h1 className="text-3xl font-bold">{getDisplayName(userTyped)}</h1>
+            <p className="text-gray-500 mt-1">{userTyped.email}</p>
             <p className="text-sm text-gray-400 mt-1">Member since {joinedDate}</p>
           </div>
         </div>
@@ -143,7 +140,7 @@ export default function DashboardPage() {
                 </svg>
               </div>
               <div>
-                <p className="text-2xl font-bold">{user.course ? "1" : "0"}</p>
+                <p className="text-2xl font-bold">{userTyped.course ? "1" : "0"}</p>
                 <p className="text-sm text-gray-500">Enrolled Courses</p>
               </div>
             </div>
@@ -196,14 +193,14 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left: Course Section */}
           <div className="lg:col-span-2">
-            {user.course ? (
+            {userTyped.course ? (
               <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
                 <h2 className="text-xl font-bold mb-4">Your Current Course</h2>
                 <div className="p-6 rounded-xl border border-gray-200 bg-gray-50">
-                  <h3 className="text-lg font-semibold">{user.course}</h3>
+                  <h3 className="text-lg font-semibold">{userTyped.course}</h3>
                   <p className="text-gray-500 text-sm mt-2">Continue your learning journey</p>
                   <Link
-                    href={`/course/${user.course.toLowerCase().replace(/\s+/g, "-")}`}
+                    href={`/course/${String(userTyped.course).toLowerCase().replace(/\s+/g, "-")}`}
                     className="inline-block mt-4 bg-black text-white px-6 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-gray-800 hover:scale-105"
                   >
                     Continue Learning

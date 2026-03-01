@@ -1,18 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:5000/api";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 type FormState = {
   email: string;
   password: string;
 };
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const returnTo = searchParams.get("returnTo") || "/";
+  const { setUser } = useAuth();
   const [form, setForm] = useState<FormState>({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
@@ -27,21 +29,34 @@ export default function LoginPage() {
     setMessage(null);
 
     try {
-      const response = await fetch(`${API_BASE}/login`, {
+      const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
 
-      const data = await response.json();
+      let data: { error?: string; user?: { name?: string; email: string } };
+      const contentType = response.headers.get("content-type") ?? "";
+      if (!contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("Login API returned non-JSON:", text?.slice(0, 200));
+        throw new Error(
+          "Server error. Check that the API and database are configured (e.g. MONGODB_URI in .env.local)."
+        );
+      }
+      try {
+        data = await response.json();
+      } catch {
+        throw new Error("Server error. Invalid response. Please try again.");
+      }
+
       if (!response.ok) {
         throw new Error(data.error || "Login failed.");
       }
 
       setMessage({ type: "success", text: "Login successful! Redirecting..." });
-      // Store user data for dashboard
-      localStorage.setItem("teachus_user", JSON.stringify(data.user));
-      setTimeout(() => router.push("/"), 900);
+      setUser(data.user!);
+      setTimeout(() => router.push(returnTo), 900);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Something went wrong.";
       setMessage({ type: "error", text: errorMessage });
@@ -51,6 +66,7 @@ export default function LoginPage() {
   };
 
   return (
+    <>
     <div className="min-h-screen bg-white text-black flex items-center justify-center px-6 py-12">
       <div className="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
         <div
@@ -133,6 +149,21 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+    </>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-white flex items-center justify-center">
+          <p className="text-gray-500">Loading...</p>
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }
 

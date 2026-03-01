@@ -4,20 +4,25 @@ import { hashPassword } from "@/lib/auth";
 
 type RegisterPayload = {
   name?: string;
+  firstName?: string;
+  lastName?: string;
   email?: string;
   password?: string;
+  city?: string;
+  phone?: string;
+  cnic?: string;
 };
 
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as RegisterPayload;
-    const name = body.name?.trim();
+    const name = body.name?.trim() || [body.firstName, body.lastName].filter(Boolean).join(" ").trim();
     const email = body.email?.trim().toLowerCase();
     const password = body.password;
 
-    if (!name || !email || !password) {
+    if (!email || !password) {
       return NextResponse.json(
-        { error: "Name, email, and password are required." },
+        { error: "Email and password are required." },
         { status: 400 }
       );
     }
@@ -42,9 +47,14 @@ export async function POST(request: Request) {
 
     const passwordHash = await hashPassword(password);
     await users.insertOne({
-      name,
+      name: name || email,
+      firstName: body.firstName?.trim(),
+      lastName: body.lastName?.trim(),
       email,
       passwordHash,
+      city: body.city?.trim(),
+      phone: body.phone?.trim(),
+      cnic: body.cnic?.trim(),
       createdAt: new Date(),
     });
 
