@@ -1,9 +1,8 @@
 "use client";
 
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { useAuth } from "@/contexts/AuthContext";
 
 type ContentState = {
   title: string | null;
@@ -14,9 +13,7 @@ type ContentState = {
 
 function ContentView() {
   const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { isLoggedIn, isLoading: authLoading } = useAuth();
   const semesterParam = searchParams.get("semester");
   const titleParam = searchParams.get("title");
 
@@ -28,17 +25,7 @@ function ContentView() {
   });
 
   useEffect(() => {
-    if (authLoading) return;
-    if (!isLoggedIn) {
-      const returnTo = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
-      router.replace(`/login?returnTo=${encodeURIComponent(returnTo)}`);
-      return;
-    }
-  }, [authLoading, isLoggedIn, pathname, router, searchParams]);
-
-  useEffect(() => {
-    if (!titleParam || !semesterParam || !isLoggedIn) {
-      if (!isLoggedIn && !authLoading) return;
+    if (!titleParam || !semesterParam) {
       setState({
         title: null,
         content: null,
@@ -75,15 +62,7 @@ function ContentView() {
           error: "Content not found",
         });
       });
-  }, [titleParam, semesterParam, isLoggedIn, authLoading]);
-
-  if (!authLoading && !isLoggedIn) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center">
-        <p className="text-gray-500">Redirecting to login...</p>
-      </div>
-    );
-  }
+  }, [titleParam, semesterParam]);
 
   if (!titleParam || !semesterParam) {
     return (

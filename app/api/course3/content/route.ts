@@ -5,6 +5,13 @@ import { join } from "path";
 const PLACEHOLDER =
   "Content for this topic is being prepared. Check back soon for detailed learning material.";
 
+/** Normalize "(Theory + Practical)" variants for matching (with/without space before paren). */
+function normalizeTheoryPractical(s: string): string {
+  return s
+    .replace(/\s*\(\s*Theory\s*\+\s*Practical\s*\)\s*$/i, "(Theory + Practical)")
+    .trim();
+}
+
 function getContent(
   contentMap: Record<string, string>,
   title: string
@@ -19,6 +26,11 @@ function getContent(
   if (contentMap[withSuffix]) return contentMap[withSuffix];
   for (const k of Object.keys(contentMap)) {
     if (k.trim() === withSuffix) return contentMap[k];
+  }
+  // Match by normalized form so "X (Y) (Theory + Practical)" matches "X (Y)(Theory + Practical)"
+  const requestedNorm = normalizeTheoryPractical(trimmed);
+  for (const k of Object.keys(contentMap)) {
+    if (normalizeTheoryPractical(k) === requestedNorm) return contentMap[k];
   }
   return null;
 }
