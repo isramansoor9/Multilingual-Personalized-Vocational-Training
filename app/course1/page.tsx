@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { BookOpen, Clock, Calendar, Globe, TrendingUp, Target, CheckCircle, Award, BarChart, Brain, Zap, Users } from "lucide-react";
 
 export default function Course1() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("overview");
 
   const courseModules = [
@@ -52,11 +54,6 @@ export default function Course1() {
           <div className="grid lg:grid-cols-2 gap-8 p-8 lg:p-12">
             {/* Left Content */}
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#c3bebb]/20 rounded-full mb-6 text-gray-800">
-                <Target className="w-4 h-4" />
-                <span className="text-sm font-bold uppercase tracking-wider">Entry Level Course</span>
-              </div>
-              
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
                 Automotive Electrical <br/><span className="text-[#968e8a]">Foundations</span>
                 <span className="block text-gray-500 text-xl font-medium mt-2">Course 1 (3-Month Intensive)</span>
@@ -66,7 +63,10 @@ export default function Course1() {
                 Designed for beginners to master practical skills in automotive electrical systems. Over three months, gain rapid hands-on experience with batteries, charging, and wiring. This intensive program prioritizes real-world safety and basic troubleshooting to jumpstart your career.
               </p>
 
-              <button className="bg-black text-white px-8 py-4 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group shadow-lg shadow-black/20">
+              <button
+                onClick={() => router.push("/course1/learn")}
+                className="bg-black text-white px-8 py-4 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group shadow-lg shadow-black/20"
+              >
                 Start Course
                 <Zap className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>

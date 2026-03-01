@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { BookOpen, Clock, Calendar, Globe, TrendingUp, Target, CheckCircle, Award, BarChart, Brain, Zap, Users } from "lucide-react";
 
 export default function Course3() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("overview");
 
   const courseModules = [
@@ -60,11 +62,6 @@ export default function Course3() {
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
           <div className="grid lg:grid-cols-2 gap-8 p-8 lg:p-12">
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#c3bebb]/20 rounded-full mb-6 text-gray-800">
-                <Target className="w-4 h-4" />
-                <span className="text-sm font-bold uppercase tracking-wider">Skilled Technician Course</span>
-              </div>
-              
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
                 Auto Electrician <br/><span className="text-[#968e8a]">G-III Level</span>
                 <span className="block text-gray-500 text-xl font-medium mt-2">Course 3 (1-Year Duration)</span>
@@ -74,8 +71,11 @@ export default function Course3() {
                 As automotive technology evolves with electronics and rapid model changes, specialized auto electricians are more in demand than ever. This curriculum bridges theoretical concepts with intensive practical application.
               </p>
 
-              <button className="bg-black text-white px-8 py-4 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group shadow-lg shadow-black/20">
-                Enroll Now
+              <button
+                onClick={() => router.push("/course3/learn")}
+                className="bg-black text-white px-8 py-4 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group shadow-lg shadow-black/20"
+              >
+                Start Course
                 <Zap className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
@@ -104,8 +104,14 @@ export default function Course3() {
                     <span className="font-medium">Total Training Hours</span>
                   </div>
                   <div className="ml-8 grid grid-cols-2 gap-2 text-sm">
-                    <p className="bg-[#c3bebb]/10 p-2 rounded text-center"><strong className="text-gray-900">1600</strong> Total</p>
-                    <p className="bg-[#c3bebb]/10 p-2 rounded text-center"><strong className="text-gray-900">40</strong> Weekly</p>
+                    <div className="bg-[#c3bebb]/10 p-2 rounded text-center flex flex-col">
+                      <span className="text-[10px] uppercase font-bold text-gray-500">Total</span>
+                      <strong className="text-gray-900 text-base">1600 Hrs</strong>
+                    </div>
+                    <div className="bg-[#c3bebb]/10 p-2 rounded text-center flex flex-col">
+                      <span className="text-[10px] uppercase font-bold text-gray-500">Weekly</span>
+                      <strong className="text-gray-900 text-base">40 Hrs</strong>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -157,43 +163,77 @@ export default function Course3() {
             {activeTab === "overview" && (
               <div>
                 <h2 className="text-3xl font-bold mb-6 text-gray-900">Table of Contents</h2>
-                <div className="mb-6 p-4 bg-blue-50 border border-blue-100 rounded-lg">
-                  <p className="text-sm text-gray-700">
-                    <strong className="text-gray-900">Note:</strong> This course is divided into 2 semesters. Modules 1-11 are covered in Semester 1, and modules 12-20 are covered in Semester 2.
-                  </p>
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="bg-gray-50 border-b border-gray-200">
-                        <th className="text-left p-4 font-semibold text-gray-900">Sr. No.</th>
-                        <th className="text-left p-4 font-semibold text-gray-900">Course Component</th>
-                        <th className="text-center p-4 font-semibold text-gray-900">Theory (Hours)</th>
-                        <th className="text-center p-4 font-semibold text-gray-900">Practical (Hours)</th>
-                        <th className="text-center p-4 font-semibold text-gray-900">Total (Hours)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {courseModules.map((module, index) => (
-                        <tr
-                          key={index}
-                          className={`border-b border-gray-100 hover:bg-gray-50 transition-colors duration-200 ${index === 11 ? 'border-t-2 border-gray-300' : ''}`}
-                        >
-                          <td className="p-4 text-gray-900">{module.no}</td>
-                          <td className="p-4 font-medium text-gray-900">{module.component}</td>
-                          <td className="p-4 text-center text-gray-900">{module.theory}</td>
-                          <td className="p-4 text-center text-gray-900">{module.practical}</td>
-                          <td className="p-4 text-center font-semibold text-gray-900">{module.total}</td>
+                <div className="overflow-x-auto space-y-8">
+                  {/* Semester 1 */}
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">Semester 1</h3>
+                    <table className="w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200">
+                          <th className="text-left p-4 font-semibold text-gray-900">Sr. No.</th>
+                          <th className="text-left p-4 font-semibold text-gray-900">Course Component</th>
+                          <th className="text-center p-4 font-semibold text-gray-900">Theory (Hours)</th>
+                          <th className="text-center p-4 font-semibold text-gray-900">Practical (Hours)</th>
+                          <th className="text-center p-4 font-semibold text-gray-900">Total (Hours)</th>
                         </tr>
-                      ))}
-                      <tr className="bg-gray-50 font-bold">
-                        <td className="p-4 text-gray-900" colSpan={2}>Total</td>
-                        <td className="p-4 text-center text-gray-900">320</td>
-                        <td className="p-4 text-center text-gray-900">1280</td>
-                        <td className="p-4 text-center text-gray-900">1600</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {courseModules.slice(0, 11).map((module, index) => (
+                          <tr
+                            key={index}
+                            className="border-b border-gray-100 hover:bg-gray-50 transition-colors duration-200"
+                          >
+                            <td className="p-4 text-gray-900">{module.no}</td>
+                            <td className="p-4 font-medium text-gray-900">{module.component}</td>
+                            <td className="p-4 text-center text-gray-900">{module.theory}</td>
+                            <td className="p-4 text-center text-gray-900">{module.practical}</td>
+                            <td className="p-4 text-center font-semibold text-gray-900">{module.total}</td>
+                          </tr>
+                        ))}
+                        <tr className="bg-gray-50 font-bold">
+                          <td className="p-4 text-gray-900" colSpan={2}>Sem 1 Total</td>
+                          <td className="p-4 text-center text-gray-900">{courseModules.slice(0, 11).reduce((s, m) => s + m.theory, 0)}</td>
+                          <td className="p-4 text-center text-gray-900">{courseModules.slice(0, 11).reduce((s, m) => s + m.practical, 0)}</td>
+                          <td className="p-4 text-center text-gray-900">{courseModules.slice(0, 11).reduce((s, m) => s + m.total, 0)}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  {/* Semester 2 */}
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">Semester 2</h3>
+                    <table className="w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200">
+                          <th className="text-left p-4 font-semibold text-gray-900">Sr. No.</th>
+                          <th className="text-left p-4 font-semibold text-gray-900">Course Component</th>
+                          <th className="text-center p-4 font-semibold text-gray-900">Theory (Hours)</th>
+                          <th className="text-center p-4 font-semibold text-gray-900">Practical (Hours)</th>
+                          <th className="text-center p-4 font-semibold text-gray-900">Total (Hours)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {courseModules.slice(11).map((module, index) => (
+                          <tr
+                            key={index + 11}
+                            className="border-b border-gray-100 hover:bg-gray-50 transition-colors duration-200"
+                          >
+                            <td className="p-4 text-gray-900">{module.no}</td>
+                            <td className="p-4 font-medium text-gray-900">{module.component}</td>
+                            <td className="p-4 text-center text-gray-900">{module.theory}</td>
+                            <td className="p-4 text-center text-gray-900">{module.practical}</td>
+                            <td className="p-4 text-center font-semibold text-gray-900">{module.total}</td>
+                          </tr>
+                        ))}
+                        <tr className="bg-gray-50 font-bold">
+                          <td className="p-4 text-gray-900" colSpan={2}>Sem 2 Total</td>
+                          <td className="p-4 text-center text-gray-900">{courseModules.slice(11).reduce((s, m) => s + m.theory, 0)}</td>
+                          <td className="p-4 text-center text-gray-900">{courseModules.slice(11).reduce((s, m) => s + m.practical, 0)}</td>
+                          <td className="p-4 text-center text-gray-900">{courseModules.slice(11).reduce((s, m) => s + m.total, 0)}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             )}
@@ -499,8 +539,11 @@ export default function Course3() {
            <p className="text-lg mb-8 max-w-2xl mx-auto font-medium opacity-80">
              Join the course designed for the modern automotive world. 80% practical training, 100% focused on your success.
            </p>
-           <button className="bg-black text-white px-12 py-5 rounded-2xl font-bold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 shadow-xl">
-             Enroll in Course 3 Today
+           <button
+             onClick={() => router.push("/course3/learn")}
+             className="bg-black text-white px-12 py-5 rounded-2xl font-bold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 shadow-xl"
+           >
+             Start Course
            </button>
          </div>
       </section>

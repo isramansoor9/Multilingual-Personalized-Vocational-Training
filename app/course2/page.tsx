@@ -54,11 +54,6 @@ export default function Course1() {
           <div className="grid lg:grid-cols-2 gap-8 p-8 lg:p-12">
             {/* Left Content */}
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#c3bebb]/20 rounded-full mb-6 text-gray-800">
-                <Target className="w-4 h-4" />
-                <span className="text-sm font-bold uppercase tracking-wider">Basic Technician Course</span>
-              </div>
-              
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
                 Automotive Electrical <br/><span className="text-[#968e8a]">Systems</span>
                 <span className="block text-gray-500 text-xl font-medium mt-2">Course 2 (6-Month Duration)</span>
